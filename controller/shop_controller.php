@@ -15,6 +15,13 @@ switch ($action) {
         update_cart($action);
         header('Location: index.php');
         exit;
+    case 'checkout':
+        // Only a real form submission can check out
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            clear_cart();
+        }
+        header('Location: index.php');
+        exit;
     case 'cart':
         show_cart();
         break;
@@ -24,6 +31,10 @@ switch ($action) {
 }
 
 function update_cart($action) {
+    // Only POST requests may change the cart
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        return;
+    }
     $id = filter_input(INPUT_POST, 'product_id', FILTER_VALIDATE_INT);
     // Only act on real products
     if (!$id || !get_product($id)) {
@@ -58,5 +69,6 @@ function show_cart() {
             'total' => $p['product_cost'] * $qty,
         ];
     }
+    $totals = calculate_totals($items);
     include BASE_PATH . 'view/cart.php';
 }

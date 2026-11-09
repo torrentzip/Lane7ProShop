@@ -24,6 +24,17 @@
     </tr>
     <?php endforeach; ?>
 </table>
+
+<table class="totals">
+    <tr><td>Items Total</td><td>$<?= number_format($totals['subtotal'], 2) ?></td></tr>
+    <tr><td>Tax (5%)</td><td>$<?= number_format($totals['tax'], 2) ?></td></tr>
+    <tr><td>Shipping &amp; Handling (10%)</td><td>$<?= number_format($totals['shipping'], 2) ?></td></tr>
+    <tr class="order-total"><td>Order Total</td><td>$<?= number_format($totals['order_total'], 2) ?></td></tr>
+</table>
+
+<form method="post" action="index.php">
+    <button type="submit" name="action" value="checkout">Check Out</button>
+</form>
 <?php endif; ?>
 
 <?php include BASE_PATH . 'view/footer.php'; ?>

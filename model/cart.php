@@ -40,3 +40,29 @@ function change_quantity($id, $change) {
 function remove_from_cart($id) {
     set_quantity($id, 0);
 }
+
+
+// Empties the cart (used by Check Out)
+function clear_cart() {
+    start_cart();
+    $_SESSION['cart'] = [];
+}
+
+// Works out the order totals from the cart items
+function calculate_totals($items) {
+    $subtotal = 0;
+    foreach ($items as $item) {
+        $subtotal += $item['total'];
+    }
+    $subtotal = round($subtotal, 2);
+    $tax = round($subtotal * TAX_RATE, 2);
+    $shipping = round($subtotal * SHIPPING_RATE, 2);  // based on pre-tax total
+    $order_total = round($subtotal + $tax + $shipping, 2);
+
+    return [
+        'subtotal'    => $subtotal,
+        'tax'         => $tax,
+        'shipping'    => $shipping,
+        'order_total' => $order_total,
+    ];
+}

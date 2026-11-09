@@ -41,3 +41,15 @@ button {
     padding: 4px 8px;
     cursor: pointer;
 }
+
+.totals {
+    width: 350px;
+    margin: 20px 0;
+}
+.totals td:last-child {
+    text-align: right;
+}
+.order-total td {
+    font-weight: bold;
+    background: #e8eef5;
+}
