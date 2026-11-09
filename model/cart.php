@@ -1,5 +1,4 @@
 <?php
-// Starts the session and makes sure the cart array exists
 function start_cart() {
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
@@ -19,7 +18,7 @@ function get_quantity($id) {
     return $_SESSION['cart'][$id] ?? 0;
 }
 
-// Sets a quantity. Never allows below 0, and 0 removes the item.
+// Never allows below 0, and 0 removes the item
 function set_quantity($id, $qty) {
     start_cart();
     $qty = max(0, (int)$qty);
