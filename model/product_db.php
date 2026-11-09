@@ -1,7 +1,6 @@
 <?php
-require_once 'database.php';
+require_once BASE_PATH . 'model/database.php';
 
-// Read all products
 function get_products() {
     $conn = get_connection();
     $sql = 'SELECT product_id, product_name, product_description, product_cost
@@ -12,7 +11,6 @@ function get_products() {
     return $products;
 }
 
-// Read one product by id (returns null if not found)
 function get_product($id) {
     $conn = get_connection();
     $stmt = $conn->prepare(
